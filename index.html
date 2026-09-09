@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moones Bertina — Transportation Planning</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2430;
+    --ink-soft:#4A5568;
+    --paper:#ECEFE9;
+    --paper-raised:#F4F6F1;
+    --line:#C7CCC3;
+    --signal:#E2B93B;
+    --route:#3E6259;
+    --route-soft:#7C9A90;
+    --max:720px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Source Serif 4', Georgia, serif;
+    font-size:18px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.mono{ font-family:'Space Grotesk', sans-serif; }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+
+  a{ color:var(--route); text-decoration-thickness:1px; text-underline-offset:3px; }
+  a:hover{ color:var(--ink); }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--signal); outline-offset:3px; }
+
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* top nav */
+  header.topnav{
+    padding:28px 0 0;
+    position:sticky; top:0;
+    background:linear-gradient(var(--paper) 78%, transparent);
+    z-index:10;
+  }
+  .topnav-inner{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 28px 14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:8px 20px;
+    border-bottom:1px solid var(--line);
+  }
+  .brand{ font-weight:600; font-size:17px; letter-spacing:.01em; }
+  nav.links{ display:flex; gap:20px; font-family:'Space Grotesk',sans-serif; font-size:15px; }
+  nav.links a{ color:var(--ink-soft); }
+  nav.links a:hover{ color:var(--route); }
+
+  /* corridor rail */
+  .corridor{
+    position:relative;
+    padding-left:26px;
+  }
+  .corridor::before{
+    content:"";
+    position:absolute;
+    left:5px; top:6px; bottom:6px;
+    width:2px;
+    background:var(--route-soft);
+    transform-origin:top;
+    animation:draw 1.1s ease-out both;
+  }
+  @keyframes draw{
+    from{ transform:scaleY(0); }
+    to{ transform:scaleY(1); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .corridor::before{ animation:none; }
+  }
+  .node{
+    position:relative;
+    padding:52px 0 8px;
+  }
+  .node::before{
+    content:"";
+    position:absolute;
+    left:-26px; top:58px;
+    width:10px; height:10px;
+    border-radius:50%;
+    background:var(--paper);
+    border:2px solid var(--route);
+  }
+  .node:first-of-type::before{ background:var(--signal); border-color:var(--signal); }
+
+  /* hero */
+  .hero{ padding:60px 0 8px; }
+  .hero .eyeline{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--route);
+    margin:0 0 10px;
+  }
+  h1.name{
+    font-size:44px;
+    line-height:1.08;
+    margin:0 0 14px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  .tagline{
+    font-size:20px;
+    color:var(--ink-soft);
+    max-width:52ch;
+    margin:0 0 26px;
+  }
+  .quickfacts{
+    display:flex; flex-wrap:wrap; gap:10px 26px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--ink-soft);
+    padding:16px 0 4px;
+    border-top:1px solid var(--line);
+  }
+  .quickfacts span b{ color:var(--ink); font-weight:500; }
+
+  h2.section-title{
+    font-size:15px;
+    font-weight:600;
+    letter-spacing:.02em;
+    color:var(--ink);
+    margin:0 0 18px;
+  }
+  .node p{ margin:0 0 16px; max-width:62ch; }
+  .node p:last-child{ margin-bottom:0; }
+
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 4px; }
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    padding:4px 10px;
+    border:1px solid var(--line);
+    color:var(--ink-soft);
+    background:var(--paper-raised);
+  }
+
+  .proj{
+    border-left:2px solid var(--line);
+    padding:2px 0 2px 16px;
+    margin:18px 0;
+  }
+  .proj h3{ font-size:17px; margin:0 0 6px; font-weight:600; }
+  .proj p{ margin:0 0 8px; font-size:16.5px; }
+  .proj a{ font-family:'Space Grotesk',sans-serif; font-size:14px; }
+
+  .role{ margin:0 0 22px; }
+  .role .rolehead{
+    display:flex; justify-content:space-between; align-items:baseline;
+    gap:12px; flex-wrap:wrap;
+    font-family:'Space Grotesk',sans-serif;
+  }
+  .role .rolehead strong{ font-size:16.5px; }
+  .role .rolehead span{ font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--ink-soft); }
+  .role p{ margin:6px 0 0; font-size:16px; color:var(--ink-soft); }
+
+  .cv-btn{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:15.5px;
+    color:var(--paper);
+    background:var(--ink);
+    padding:12px 20px;
+    border:none;
+    text-decoration:none;
+    margin-top:6px;
+  }
+  .cv-btn:hover{ background:var(--route); color:var(--paper); }
+
+  footer{
+    margin-top:60px;
+    padding:28px 0 60px 26px;
+    border-top:1px solid var(--line);
+  }
+  footer .contact-row{
+    display:flex; flex-wrap:wrap; gap:6px 24px;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:16px;
+  }
+  footer .note{
+    margin-top:16px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:600px){
+    body{ font-size:16.5px; }
+    h1.name{ font-size:34px; }
+    .tagline{ font-size:18px; }
+    nav.links{ font-size:14px; gap:14px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="topnav-inner">
+    <div class="brand">Moones Bertina</div>
+    <nav class="links">
+      <a href="#research">Research</a>
+      <a href="#experience">Experience</a>
+      <a href="#cv">CV</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <p class="eyeline">Tehran, Iran</p>
+    <h1 class="name">Moones Bertina</h1>
+    <p class="tagline">Transportation planning researcher working on multi-agent reinforcement learning for coordinated traffic signal control.</p>
+    <div class="quickfacts">
+      <span><b>MSc</b> Transportation Planning — Tarbiat Modares University</span>
+      <span><b>BSc</b> Civil Engineering — Isfahan University of Technology</span>
+    </div>
+  </section>
+
+  <div class="corridor">
+
+    <div class="node" id="about">
+      <h2 class="section-title">About</h2>
+      <p>I'm a civil engineer specializing in transportation planning and intelligent transportation systems. My work sits at the intersection of traffic simulation and reinforcement learning — using tools like SUMO, VISSIM, and PTV Visum to model how networks behave, and MARL to explore how signals can coordinate rather than act alone.</p>
+      <p>Before starting my Master's, I worked as a traffic analyst and, briefly, as a structural engineer — experience that keeps my research grounded in how transportation systems are actually built and studied in practice.</p>
+    </div>
+
+    <div class="node" id="research">
+      <h2 class="section-title">Research</h2>
+      <div class="proj">
+        <h3>Multi-agent RL for corridor signal coordination — MSc thesis, in progress</h3>
+        <p>Developing a cooperative multi-agent reinforcement learning approach to coordinate traffic signals across a two-intersection corridor, using SUMO with an OSM-derived network. Builds on an earlier single-intersection PPO controller to study how coordination changes emergent signal behavior.</p>
+        <div class="tags">
+          <span class="tag">SUMO</span>
+          <span class="tag">PettingZoo</span>
+          <span class="tag">Stable-Baselines3</span>
+          <span class="tag">PPO</span>
+        </div>
+      </div>
+      <div class="proj">
+        <h3>Transportation demand modeling — PTV Visum</h3>
+        <p>Built and calibrated a 5-zone network model for Tehran, including OD matrix calibration via the gravity model (KALIBRI), logit-based modal split, and PrT/PuT assignment. Full report and code published on GitHub.</p>
+        <a href="#">View on GitHub →</a>
+      </div>
+      <div class="proj">
+        <h3>Adaptive signal control at a single intersection — seminar project</h3>
+        <p>Designed and implemented a PPO-based adaptive traffic signal controller in SUMO, evaluated across varying traffic conditions.</p>
+      </div>
+    </div>
+
+    <div class="node" id="experience">
+      <h2 class="section-title">Experience</h2>
+      <div class="role">
+        <div class="rolehead">
+          <strong>Traffic Analyst — EttehadRah</strong>
+          <span>2024 – 2025</span>
+        </div>
+        <p>Traffic data collection and analysis for client transportation studies; prepared spatial network inputs for simulation and evaluated intersection and corridor performance.</p>
+      </div>
+      <div class="role">
+        <div class="rolehead">
+          <strong>Structural Engineer &amp; Designer — Atishar</strong>
+          <span>2023 – 2025</span>
+        </div>
+        <p>Full-cycle structural and architectural design work, including analysis in ETABS/SAP and cost-estimation automation with Python.</p>
+      </div>
+    </div>
+
+    <div class="node" id="cv">
+      <h2 class="section-title">CV</h2>
+      <p>Full academic and professional background, including coursework, awards, and technical skills.</p>
+      <a class="cv-btn" href="CV_Moones_Bertina.pdf">Download CV (PDF)</a>
+    </div>
+
+  </div>
+
+  <footer id="contact">
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-row">
+      <a href="mailto:youremail@example.com">youremail@example.com</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">GitHub</a>
+    </div>
+    <p class="note">Open to PhD opportunities in multi-agent reinforcement learning and intelligent transportation systems — Fall 2027.</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
