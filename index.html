@@ -172,6 +172,9 @@
   .role .rolehead span{ font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--ink-soft); }
   .role p{ margin:6px 0 0; font-size:16px; color:var(--ink-soft); }
 
+  .skillrow{ margin:0 0 14px; }
+  .skillrow h3{ font-size:15px; margin:0 0 4px; font-weight:600; }
+
   .cv-btn{
     display:inline-flex; align-items:center; gap:10px;
     font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:15.5px;
@@ -217,6 +220,7 @@
     <nav class="links">
       <a href="#research">Research</a>
       <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
       <a href="#cv">CV</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -230,7 +234,7 @@
     <h1 class="name">Moones Bertina</h1>
     <p class="tagline">Transportation planning researcher working on multi-agent reinforcement learning for coordinated traffic signal control.</p>
     <div class="quickfacts">
-      <span><b>MSc</b> Transportation Planning — Tarbiat Modares University</span>
+      <span><b>MSc</b> Transportation Planning — Tarbiat Modares University (expected Sep 2027)</span>
       <span><b>BSc</b> Civil Engineering — Isfahan University of Technology</span>
     </div>
   </section>
@@ -239,35 +243,51 @@
 
     <div class="node" id="about">
       <h2 class="section-title">About</h2>
-      <p>I'm a civil engineer specializing in transportation planning and intelligent transportation systems. My work sits at the intersection of traffic simulation and reinforcement learning — using tools like SUMO, VISSIM, and PTV Visum to model how networks behave, and MARL to explore how signals can coordinate rather than act alone.</p>
-      <p>Before starting my Master's, I worked as a traffic analyst and, briefly, as a structural engineer — experience that keeps my research grounded in how transportation systems are actually built and studied in practice.</p>
+      <p>I'm a civil engineer specializing in transportation planning and intelligent transportation systems. My work combines traffic simulation, travel demand modeling and reinforcement learning, using tools like SUMO, VISSIM and PTV Visum to model how networks behave, and MARL to explore how signals can coordinate rather than act alone.</p>
+      <p>Before starting my Master's, I worked as a traffic analyst and, briefly, as a structural engineer, which keeps my research grounded in how transportation systems are actually built and studied in practice.</p>
     </div>
 
     <div class="node" id="research">
       <h2 class="section-title">Research</h2>
       <div class="proj">
         <h3>Multi-agent RL for corridor signal coordination — MSc thesis, in progress</h3>
-        <p>Developing a cooperative multi-agent reinforcement learning approach to coordinate traffic signals across a two-intersection corridor, using SUMO with an OSM-derived network. Builds on an earlier single-intersection PPO controller to study how coordination changes emergent signal behavior.</p>
+        <p>Designing a cooperative multi-agent reinforcement learning approach to coordinate traffic signals along a two-intersection corridor in SUMO, using an OSM-derived network. The study compares independent and cooperative PPO controllers against fixed-time and classical green-wave baselines. Supervisor: <a href="https://www.modares.ac.ir/pro/academic_staff/saffar_m" target="_blank" rel="noopener">Prof. Mahmoud Saffarzadeh</a>.</p>
         <div class="tags">
           <span class="tag">SUMO</span>
+          <span class="tag">TraCI</span>
           <span class="tag">PettingZoo</span>
           <span class="tag">Stable-Baselines3</span>
           <span class="tag">PPO</span>
         </div>
       </div>
       <div class="proj">
-        <h3>Transportation demand modeling — PTV Visum</h3>
-        <p>Built and calibrated a 5-zone network model for Tehran, including OD matrix calibration via the gravity model (KALIBRI), logit-based modal split, and PrT/PuT assignment. Full report and code published on GitHub.</p>
-        <a href="#">View on GitHub →</a>
+        <h3>Tehran demand and traffic assignment models — SUMO</h3>
+        <p>Developing SUMO-based demand and traffic assignment models for Tehran land uses (hospitals, university campus, recreational center), using the Tehran Trip Generation Manual and a TAZ-level OD matrix. Python scripts generate the network and zone reports. In a related team project on reducing through-traffic in residential neighborhoods, I built the OSM-based network model and estimated demand from the Tehran Comprehensive Plan.</p>
       </div>
       <div class="proj">
-        <h3>Adaptive signal control at a single intersection — seminar project</h3>
-        <p>Designed and implemented a PPO-based adaptive traffic signal controller in SUMO, evaluated across varying traffic conditions.</p>
+        <h3>Kerman Municipality traffic study, Report 1: Shora Square — team project, 2026</h3>
+        <p>A team study by Tarbiat Modares University covering macroscopic modeling in Visum, microsimulation of road-closure scenarios, and multi-criteria evaluation of the options. My role: report writing and analysis of traffic scenarios.</p>
+      </div>
+      <div class="proj">
+        <h3>Transportation demand modeling — PTV Visum</h3>
+        <p>Built and calibrated a 5-zone network model for Tehran, including OD matrix calibration via the gravity model (KALIBRI), logit-based modal split, and PrT/PuT assignment. Full report and code published on GitHub.</p>
+        <a href="https://github.com/Moonesbertinaa" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+      <div class="proj">
+        <h3>Deep RL for adaptive signal control — seminar project</h3>
+        <p>Reviewed the literature on deep reinforcement learning (PPO) for adaptive traffic signal control, and developed a reinforcement learning controller for a single intersection in SUMO. This work is the starting point for the thesis.</p>
       </div>
     </div>
 
     <div class="node" id="experience">
       <h2 class="section-title">Experience</h2>
+      <div class="role">
+        <div class="rolehead">
+          <strong>Research Assistant (part-time) — Transportation Lab, Tarbiat Modares University</strong>
+          <span>2026 – present</span>
+        </div>
+        <p>Working on the MARL signal control study and the SUMO-based demand and assignment models described above.</p>
+      </div>
       <div class="role">
         <div class="rolehead">
           <strong>Traffic Analyst — EttehadRah</strong>
@@ -278,15 +298,60 @@
       <div class="role">
         <div class="rolehead">
           <strong>Structural Engineer &amp; Designer — Atishar</strong>
-          <span>2023 – 2025</span>
+          <span>Dec 2023 – Feb 2025</span>
         </div>
-        <p>Full-cycle structural and architectural design work, including analysis in ETABS/SAP and cost-estimation automation with Python.</p>
+        <p>Structural and architectural design work, including analysis in ETABS/SAP and cost-estimation automation with Python.</p>
+      </div>
+      <div class="role">
+        <div class="rolehead">
+          <strong>Instructor (part-time) — Pardisan Institute</strong>
+          <span>2022 – present</span>
+        </div>
+      </div>
+      <div class="role">
+        <div class="rolehead">
+          <strong>Executive Team Member — two conferences</strong>
+          <span>Dec 2025 – Feb 2026</span>
+        </div>
+        <p>Challenges in the Development and Maintenance of Airport Infrastructure; 20th International Conference on Traffic and Transportation Engineering.</p>
+      </div>
+    </div>
+
+    <div class="node" id="skills">
+      <h2 class="section-title">Skills</h2>
+      <div class="skillrow">
+        <h3>Simulation and transportation software</h3>
+        <div class="tags">
+          <span class="tag">SUMO</span>
+          <span class="tag">PTV Visum</span>
+          <span class="tag">VISSIM</span>
+          <span class="tag">netconvert</span>
+          <span class="tag">TraCI</span>
+          <span class="tag">od2trips</span>
+        </div>
+      </div>
+      <div class="skillrow">
+        <h3>Programming and RL</h3>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">R</span>
+          <span class="tag">PyTorch</span>
+          <span class="tag">Stable-Baselines3</span>
+          <span class="tag">PettingZoo</span>
+        </div>
+      </div>
+      <div class="skillrow">
+        <h3>Spatial data</h3>
+        <div class="tags">
+          <span class="tag">QGIS</span>
+          <span class="tag">OpenStreetMap</span>
+        </div>
       </div>
     </div>
 
     <div class="node" id="cv">
       <h2 class="section-title">CV</h2>
-      <p>Full academic and professional background, including coursework, awards, and technical skills.</p>
+      <p>Full academic and professional background, including education, research and professional experience, and technical skills.</p>
       <a class="cv-btn" href="Bertina_CV.pdf">Download CV (PDF)</a>
     </div>
 
@@ -296,13 +361,14 @@
     <h2 class="section-title">Contact</h2>
     <div class="contact-row">
       <a href="mailto:bertinamoones@gmail.com">bertinamoones@gmail.com</a>
-      <a href="https://www.linkedin.com/in/moonesbertina211/" target="_blank">LinkedIn</a>
-      <a href="https://github.com/Moonesbertinaa">GitHub</a>
+      <a href="https://www.linkedin.com/in/moonesbertina211/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Moonesbertinaa" target="_blank" rel="noopener">GitHub</a>
     </div>
-    <p class="note">Open to PhD opportunities in multi-agent reinforcement learning and intelligent transportation systems — Fall 2027.</p>
+    <p class="note">
+      Open to PhD opportunities in multi-agent reinforcement learning and intelligent transportation systems — Fall 2027.
+    </p>
   </footer>
 
 </div>
-
 </body>
 </html>
